@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\KelasModel;
+use App\Models\SiswaModel;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Button;
@@ -12,9 +12,9 @@ use PowerComponents\LivewirePowerGrid\Facades\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 
-final class KelasTable extends PowerGridComponent
+final class SiswaTable extends PowerGridComponent
 {
-    public string $tableName = 'kelas-table-lg7dl5-table';
+    public string $tableName = 'siswa-table-suqcl9-table';
 
     public function setUp(): array
     {
@@ -29,7 +29,7 @@ final class KelasTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return KelasModel::query();
+        return SiswaModel::query()->with('kelas');
     }
 
     public function relationSearch(): array
@@ -41,8 +41,12 @@ final class KelasTable extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('id')
-            ->add('nama_kelas')
-            ->add('created_at');
+            ->add('nis')
+            ->add('nama_siswa')
+            ->add('nama_kelas', fn(SiswaModel $model) => $model->kelas->nama_kelas ?? 'Kelas tidak tersedia')
+            ->add('jenis_kelamin', fn(SiswaModel $model) => $model->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan')
+            ->add('alamat')
+            ->add('no_wa');
     }
 
     public function columns(): array
@@ -52,9 +56,30 @@ final class KelasTable extends PowerGridComponent
                 ->title('No')
                 ->field('row_number')
                 ->index(),
-            Column::make('Nama kelas', 'nama_kelas')
+            Column::make('Nis', 'nis')
                 ->sortable()
                 ->searchable(),
+
+            Column::make('Nama Siswa', 'nama_siswa')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('Kelas', 'nama_kelas')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('Jenis kelamin', 'jenis_kelamin')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('Alamat', 'alamat')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('No wa', 'no_wa')
+                ->sortable()
+                ->searchable(),
+
             Column::action('Action')
         ];
     }
@@ -70,7 +95,7 @@ final class KelasTable extends PowerGridComponent
         $this->js('alert(' . $rowId . ')');
     }
 
-    public function actions(KelasModel $row): array
+    public function actions(SiswaModel $row): array
     {
         return [
             Button::add('edit')

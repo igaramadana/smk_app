@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,12 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/', [DashboardController::class, 'dashboardAdmin'])->name('dashboard.admin');
+        // Data Siswa
         Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
+
+        // Data Kelas
+        Route::get('/kelas', [KelasController::class, 'index'])->name('kelas.index');
+        Route::post('/kelas/store', [KelasController::class, 'store'])->name('kelas.store');
     });
 
     Route::get('/petugas', function () {

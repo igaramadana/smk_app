@@ -41,7 +41,7 @@
                 </a>
             </li>
             <li class="mt-3">
-                <a href="#"
+                <a href="{{route('kelas.index')}}"
                     class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-green-100 group transition-colors duration-200">
                     <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-green-600"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
