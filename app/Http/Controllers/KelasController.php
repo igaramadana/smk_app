@@ -29,4 +29,19 @@ class KelasController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
+    public function delete(string $id)
+    {
+        $check = KelasModel::find($id);
+        if (!$check) {
+            return redirect()->back()->with('error', 'Data kelas tidak ditemukan');
+        }
+
+        try {
+            KelasModel::destroy($id);
+            return redirect()->route('kelas.index')->with('success', 'Data kelas berhasil dihapus');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
 }

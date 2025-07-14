@@ -32,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
         // Data Kelas
         Route::get('/kelas', [KelasController::class, 'index'])->name('kelas.index');
         Route::post('/kelas/store', [KelasController::class, 'store'])->name('kelas.store');
+        Route::delete('/kelas/{id}', [KelasController::class, 'delete'])->name('kelas.delete');
     });
 
     Route::get('/petugas', function () {
