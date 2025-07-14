@@ -73,6 +73,11 @@ final class KelasTable extends PowerGridComponent
     public function actions(KelasModel $row): array
     {
         return [
+            Button::add('edit')
+                ->slot(view('components.edit-button-kelas', [
+                    'kelas_id' => $row->id,
+                    'nama_kelas' => $row->nama_kelas,
+                ])->render()),
             Button::add('delete')
                 ->slot(view('components.delete-button-kelas', ['kelas_id' => $row->id])->render())
         ];
