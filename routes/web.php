@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function () {
         // Data Siswa
         Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
         Route::post('/siswa/store', [SiswaController::class, 'store'])->name('siswa.store');
+        Route::put('/siswa/{id}', [SiswaController::class, 'update'])->name('siswa.update');
 
         // Data Kelas
         Route::get('/kelas', [KelasController::class, 'index'])->name('kelas.index');

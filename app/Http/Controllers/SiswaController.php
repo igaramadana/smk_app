@@ -37,4 +37,28 @@ class SiswaController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
+    public function update(Request $request, string $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'nis' => 'required|min:4|unique:siswa,nis,' . $id,
+            'nama_siswa' => 'required|min:3',
+            'jenis_kelamin' => 'required',
+            'id_kelas' => 'required|exists:kelas,id',
+            'alamat' => 'required',
+            'no_wa' => 'required|numeric|min:10'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        try {
+            $siswa = SiswaModel::find($id);
+            $siswa->update($request->all());
+            return redirect()->back()->with('success', 'Data siswa berhasil diupdate');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
 }

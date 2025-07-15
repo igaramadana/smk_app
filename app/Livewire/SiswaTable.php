@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\KelasModel;
 use App\Models\SiswaModel;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -97,12 +98,20 @@ final class SiswaTable extends PowerGridComponent
 
     public function actions(SiswaModel $row): array
     {
+        $kelas = KelasModel::all(); // Tambahkan ini
+        
         return [
             Button::add('edit')
-                ->slot('Edit: ' . $row->id)
-                ->id()
-                ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-                ->dispatch('edit', ['rowId' => $row->id])
+                ->slot(view('components.edit-button-siswa', [
+                    'siswa_id' => $row->id,
+                    'nis' => $row->nis,
+                    'nama_siswa' => $row->nama_siswa,
+                    'id_kelas' => $row->id_kelas, // Pastikan ini ada
+                    'kelas' => $kelas, // Tambahkan ini
+                    'jenis_kelamin' => $row->jenis_kelamin,
+                    'alamat' => $row->alamat,
+                    'no_wa' => $row->no_wa
+                ])->render()),
         ];
     }
 
