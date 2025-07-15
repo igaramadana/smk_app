@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
         Route::post('/siswa/store', [SiswaController::class, 'store'])->name('siswa.store');
         Route::put('/siswa/{id}', [SiswaController::class, 'update'])->name('siswa.update');
+        Route::delete('/siswa/{id}', [SiswaController::class, 'delete'])->name('siswa.delete');
 
         // Data Kelas
         Route::get('/kelas', [KelasController::class, 'index'])->name('kelas.index');

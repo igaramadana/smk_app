@@ -99,7 +99,7 @@ final class SiswaTable extends PowerGridComponent
     public function actions(SiswaModel $row): array
     {
         $kelas = KelasModel::all(); // Tambahkan ini
-        
+
         return [
             Button::add('edit')
                 ->slot(view('components.edit-button-siswa', [
@@ -112,6 +112,8 @@ final class SiswaTable extends PowerGridComponent
                     'alamat' => $row->alamat,
                     'no_wa' => $row->no_wa
                 ])->render()),
+            Button::add('delete')
+                ->slot(view('components.delete-button-siswa', ['siswa_id' => $row->id])->render())
         ];
     }
 

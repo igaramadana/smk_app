@@ -61,4 +61,15 @@ class SiswaController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
+    public function delete(string $id)
+    {
+        try {
+            $siswa = SiswaModel::find($id);
+            $siswa->delete();
+            return redirect()->back()->with('success', 'Data siswa berhasil dihapus');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
 }
