@@ -13,10 +13,8 @@
                         </path>
                     </svg>
                 </button>
-                <a href="https://flowbite.com" class="flex ms-2 md:me-24">
-                    <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
-                    <span
-                        class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-gray-800">Flowbite</span>
+                <a href="{{route('dashboard.admin')}}" class="flex ms-2 md:me-24">
+                    <img src="{{ asset('img/logo.png') }}" alt="Logo Mirafa" style="width: 160px; height: auto;">
                 </a>
             </div>
             <div class="flex items-center">
