@@ -34,6 +34,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/siswa/{id}', [SiswaController::class, 'delete'])->name('siswa.delete');
         Route::post('/siswa/import', [SiswaController::class, 'import'])->name('siswa.import');
         Route::get('/siswa/import/template', [SiswaController::class, 'downloadTemplate'])->name('siswa.import.template');
+        Route::delete('/siswa/delete/all', [SiswaController::class, 'deleteAll'])->name('siswa.delete.all');
 
         // Data Kelas
         Route::get('/kelas', [KelasController::class, 'index'])->name('kelas.index');

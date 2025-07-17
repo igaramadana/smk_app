@@ -126,4 +126,14 @@ class SiswaController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
+    public function deleteAll()
+    {
+        try {
+            SiswaModel::query()->delete();
+            return redirect()->back()->with('success', 'Data semua siswa berhasil dihapus');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
 }
