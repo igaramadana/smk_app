@@ -46,4 +46,19 @@ class KategoriController extends Controller
                 ->withInput();
         }
     }
+
+    public function delete(string $id)
+    {
+        try {
+            $check = KategoriModel::find($id);
+            if (!$check) {
+                return redirect()->back()->with('error', 'Data kategori tidak ditemukan');
+            }
+
+            KategoriModel::destroy($id);
+            return redirect()->route('kategori.index')->with('success', 'Data kategori berhasil dihapus');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data kategori tidak dapat dihapus karena masih terdapat pembayaran yang memakai kategori ini.');
+        }
+    }
 }

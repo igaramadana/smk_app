@@ -51,6 +51,7 @@ Route::middleware(['auth'])->group(function () {
         // Kategori pembayaran
         Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
         Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
+        Route::delete('/kategori/{id}', [KategoriController::class, 'delete'])->name('kategori.delete');
     });
 
     Route::get('/petugas', function () {
