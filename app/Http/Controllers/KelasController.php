@@ -33,7 +33,7 @@ class KelasController extends Controller
     public function update(Request $request, string $id)
     {
         $validator = Validator::make($request->all(), [
-            'nama_kelas' => 'required|min:2|max:8|unique:kelas,nama_kelas,'.$id
+            'nama_kelas' => 'required|min:2|max:8|unique:kelas,nama_kelas,' . $id
         ]);
 
         if ($validator->fails()) {
@@ -64,7 +64,7 @@ class KelasController extends Controller
             KelasModel::destroy($id);
             return redirect()->route('kelas.index')->with('success', 'Data kelas berhasil dihapus');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
+            return redirect()->back()->with('error', 'Data kelas tidak dapat dihapus karena masih terdapat siswa yang memakai kelas ini.');
         }
     }
 }

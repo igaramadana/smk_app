@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\DashboardController;
 
 /*
@@ -37,6 +38,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/kelas/store', [KelasController::class, 'store'])->name('kelas.store');
         Route::delete('/kelas/{id}', [KelasController::class, 'delete'])->name('kelas.delete');
         Route::put('/kelas/{id}', [KelasController::class, 'update'])->name('kelas.update');
+
+        // Data Petugas
+        Route::get('/petugas', [PetugasController::class, 'index'])->name('petugas.index');
+        Route::post('/petugas/store', [PetugasController::class, 'store'])->name('petugas.store');
+        Route::delete('/petugas/{id}', [PetugasController::class, 'delete'])->name('petugas.delete');
     });
 
     Route::get('/petugas', function () {
