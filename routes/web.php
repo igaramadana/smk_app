@@ -6,6 +6,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KategoriController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/petugas', [PetugasController::class, 'index'])->name('petugas.index');
         Route::post('/petugas/store', [PetugasController::class, 'store'])->name('petugas.store');
         Route::delete('/petugas/{id}', [PetugasController::class, 'delete'])->name('petugas.delete');
+
+        // Kategori pembayaran
+        Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
+        Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
     });
 
     Route::get('/petugas', function () {
