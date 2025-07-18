@@ -98,7 +98,7 @@ final class SiswaTable extends PowerGridComponent
 
     public function actions(SiswaModel $row): array
     {
-        $kelas = KelasModel::all(); // Tambahkan ini
+        $kelas = KelasModel::all();
 
         return [
             Button::add('edit')
@@ -106,8 +106,8 @@ final class SiswaTable extends PowerGridComponent
                     'siswa_id' => $row->id,
                     'nis' => $row->nis,
                     'nama_siswa' => $row->nama_siswa,
-                    'id_kelas' => $row->id_kelas, // Pastikan ini ada
-                    'kelas' => $kelas, // Tambahkan ini
+                    'id_kelas' => $row->id_kelas,
+                    'kelas' => $kelas,
                     'jenis_kelamin' => $row->jenis_kelamin,
                     'alamat' => $row->alamat,
                     'no_wa' => $row->no_wa

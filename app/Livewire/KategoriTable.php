@@ -86,10 +86,11 @@ final class KategoriTable extends PowerGridComponent
     {
         return [
             Button::add('edit')
-                ->slot('Edit: ' . $row->id)
-                ->id()
-                ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-                ->dispatch('edit', ['rowId' => $row->id]),
+                ->slot(view('components.edit-button-kategori', [
+                    'kategori_id' => $row->id,
+                    'nama_kategori' => $row->nama_kategori,
+                    'nominal' => $this->formatRupiah($row->nominal)
+                ])->render()),
             Button::add('delete')
                 ->slot(view('components.delete-button-kategori', ['rowId' => $row->id])->render())
         ];
