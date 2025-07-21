@@ -83,17 +83,24 @@
     const nominalInput = document.getElementById('nominal');
 
     nominalInput.addEventListener('keyup', function(e) {
-        let value = this.value.replace(/\D/g, '');
+        let value = this.value.replace(/[^\d]/g, '');
 
         if(value) {
             value = parseInt(value, 10).toLocaleString('id-ID');
+        } else {
+            value = '';
         }
 
         this.value = value;
     });
 
     document.querySelector('form').addEventListener('submit', function(e) {
-        const rawValue = nominalInput.value.replace(/\D/g, '');
+        const rawValue = nominalInput.value.replace(/[^\d]/g, '');
+        if (rawValue === '') {
+            e.preventDefault();
+            alert('Nominal harus diisi');
+            return;
+        }
         nominalInput.value = rawValue;
     });
 });

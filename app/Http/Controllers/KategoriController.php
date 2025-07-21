@@ -17,7 +17,7 @@ class KategoriController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama_kategori' => 'required|string|max:255|min:3|unique:kategori,nama_kategori',
-            'nominal' => 'required|numeric|min:1000'
+            'nominal' => 'required|numeric|min:4'
         ], [
             'nama_kategori.required' => 'Nama kategori wajib diisi',
             'nama_kategori.min' => 'Nama kategori minimal 3 karakter',
@@ -34,9 +34,12 @@ class KategoriController extends Controller
         }
 
         try {
+            // Konversi nominal ke integer
+            $nominal = (int) str_replace('.', '', $request->nominal);
+
             KategoriModel::create([
                 'nama_kategori' => $request->nama_kategori,
-                'nominal' => $request->nominal
+                'nominal' => $nominal
             ]);
             return redirect()->route('kategori.index')
                 ->with('success', 'Data kategori berhasil ditambahkan');
@@ -51,7 +54,7 @@ class KategoriController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama_kategori' => 'required|string|max:255|min:3|unique:kategori,nama_kategori,' . $id,
-            'nominal' => 'required|numeric|min:1000'
+            'nominal' => 'required|numeric|min:4'
         ], [
             'nama_kategori.required' => 'Nama kategori wajib diisi',
             'nama_kategori.min' => 'Nama kategori minimal 3 karakter',
@@ -76,9 +79,12 @@ class KategoriController extends Controller
                     ->withInput();
             }
 
+            // Konversi nominal ke integer
+            $nominal = (int) str_replace('.', '', $request->nominal);
+
             $kategori->update([
                 'nama_kategori' => $request->nama_kategori,
-                'nominal' => $request->nominal
+                'nominal' => $nominal
             ]);
 
             return redirect()->route('kategori.index')

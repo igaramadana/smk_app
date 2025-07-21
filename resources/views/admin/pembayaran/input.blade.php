@@ -48,8 +48,10 @@
                             required>
                             <option value="">Pilih Kategori</option>
                             @foreach($kategoris as $kategori)
-                            <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }} - Rp {{
-                                number_format($kategori->nominal, 0, ',', '.') }}</option>
+                            <option value="{{ $kategori->id }}"
+                                data-is-infaq="{{ strtolower($kategori->nama_kategori) === 'infaq' ? 'true' : 'false' }}">
+                                {{ $kategori->nama_kategori }} - Rp {{ number_format($kategori->nominal, 0, ',', '.') }}
+                            </option>
                             @endforeach
                         </select>
                         @error('id_kategori')
@@ -62,8 +64,7 @@
                         <label for="bulan_dibayar" class="block mb-2 text-sm font-medium text-gray-900">Bulan
                             Dibayar</label>
                         <select id="bulan_dibayar" name="bulan_dibayar"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
-                            required>
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                             <option value="">Pilih Bulan</option>
                             @foreach(['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
                             'September', 'Oktober', 'November', 'Desember'] as $bulan)
@@ -135,39 +136,66 @@
 
 @push('scripts')
 <script>
-    document.getElementById('id_kelas').addEventListener('change', function () {
-    const kelasId = this.value;
-    const siswaSelect = document.getElementById('id_siswa');
-    siswaSelect.innerHTML = '<option value="">Memuat siswa...</option>';
-    siswaSelect.disabled = true;
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fungsi untuk menangani perubahan kelas dan siswa
+        document.getElementById('id_kelas').addEventListener('change', function() {
+            const kelasId = this.value;
+            const siswaSelect = document.getElementById('id_siswa');
+            siswaSelect.innerHTML = '<option value="">Memuat siswa...</option>';
+            siswaSelect.disabled = true;
 
-    if (kelasId) {
-        fetch(`{{ route('get.siswa.by.kelas', '') }}/${kelasId}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+            if (kelasId) {
+                fetch(`{{ route('get.siswa.by.kelas', '') }}/${kelasId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        siswaSelect.innerHTML = '<option value="">Pilih Siswa</option>';
+                        data.forEach(siswa => {
+                            const option = document.createElement('option');
+                            option.value = siswa.id;
+                            option.text = siswa.nama_siswa;
+                            siswaSelect.appendChild(option);
+                        });
+                        siswaSelect.disabled = false;
+                    })
+                    .catch(error => {
+                        siswaSelect.innerHTML = '<option value="">Gagal memuat siswa</option>';
+                        console.error('Error:', error);
+                        siswaSelect.disabled = false;
+                    });
+            } else {
+                siswaSelect.innerHTML = '<option value="">Pilih Siswa</option>';
             }
-            return response.json();
-        })
-        .then(data => {
-            siswaSelect.innerHTML = '<option value="">Pilih Siswa</option>';
-            data.forEach(siswa => {
-                const option = document.createElement('option');
-                option.value = siswa.id;
-                option.text = siswa.nama_siswa;
-                siswaSelect.appendChild(option);
-            });
-            siswaSelect.disabled = false;
-        })
-        .catch(error => {
-            siswaSelect.innerHTML = '<option value="">Gagal memuat siswa</option>';
-            console.error('Error:', error);
-            siswaSelect.disabled = false;
         });
-    } else {
-        siswaSelect.innerHTML = '<option value="">Pilih Siswa</option>';
+
+        // Fungsi untuk menangani bulan dibayar berdasarkan kategori
+        const kategoriSelect = document.getElementById('id_kategori');
+        const bulanSelect = document.getElementById('bulan_dibayar');
+
+        function updateBulanField() {
+            const selectedOption = kategoriSelect.options[kategoriSelect.selectedIndex];
+            const isInfaq = selectedOption.getAttribute('data-is-infaq') === 'true';
+
+            if (isInfaq) {
+                bulanSelect.disabled = false;
+                bulanSelect.setAttribute('required', 'required');
+            } else {
+                bulanSelect.disabled = true;
+                bulanSelect.removeAttribute('required');
+                bulanSelect.value = '';
+            }
         }
-});
+
+        // Jalankan saat pertama kali load
+        updateBulanField();
+
+        // Tambahkan event listener
+        kategoriSelect.addEventListener('change', updateBulanField);
+    });
 </script>
 @endpush
 

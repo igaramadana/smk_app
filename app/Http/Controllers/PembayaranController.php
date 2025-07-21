@@ -40,7 +40,7 @@ class PembayaranController extends Controller
             'id_kelas' => 'required|exists:kelas,id',
             'id_siswa' => 'required|exists:siswa,id',
             'id_kategori' => 'required|exists:kategori,id',
-            'bulan_dibayar' => 'required|string|max:20',
+            'bulan_dibayar' => 'string|max:20',
             'tanggal_pembayaran' => 'required|date',
             'metode_pembayaran' => 'required|string|max:50',
         ]);
