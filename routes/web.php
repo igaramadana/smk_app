@@ -1,12 +1,14 @@
 <?php
 
+use App\Models\SiswaModel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\PetugasController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PembayaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +55,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
         Route::delete('/kategori/{id}', [KategoriController::class, 'delete'])->name('kategori.delete');
         Route::put('/kategori/update/{id}', [KategoriController::class, 'update'])->name('kategori.update');
+
+        // Input Pembayaran
+        Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran.index');
+        Route::post('/pembayaran/store', [PembayaranController::class, 'store'])->name('pembayaran.store');
+        Route::get('/get-siswa-by-kelas/{kelasId}', [PembayaranController::class, 'getSiswaByKelas'])->name('get.siswa.by.kelas');
     });
 
     Route::get('/petugas', function () {

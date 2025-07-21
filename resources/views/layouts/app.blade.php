@@ -8,6 +8,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    @livewireStyles
 </head>
 
 <body class="bg-gray-100">
@@ -23,8 +24,10 @@
     @include('layouts.footer')
 
     <!-- Flowbite JS -->
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.3.0/dist/flowbite.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/flowbite@2.3.0/dist/flowbite.min.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    @livewireScripts
     {{-- Toastify --}}
     @if(session('success'))
     <script>
