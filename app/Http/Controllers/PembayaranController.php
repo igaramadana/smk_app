@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\KelasModel;
 use App\Models\SiswaModel;
 use Illuminate\Http\Request;
 use App\Models\KategoriModel;
@@ -76,12 +75,20 @@ class PembayaranController extends Controller
 
             DB::commit();
 
-            return redirect()->route('pembayaran.index')
-                ->with('success', 'Pembayaran berhasil disimpan dan notifikasi telah dikirim!');
+            // Simpan ID pembayaran dalam session untuk dicetak
+            return redirect()->route('pembayaran.kwitansi', $pembayaran->id)
+                ->with('print', true); // Flag untuk auto print
+
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->withInput()
                 ->with('error', 'Gagal menyimpan pembayaran. Error: ' . $e->getMessage());
         }
+    }
+
+    public function kwitansi($id)
+    {
+        $pembayaran = PembayaranModel::with(['siswa', 'kategori', 'petugas'])->findOrFail($id);
+        return view('admin.pembayaran.kwitansi', compact('pembayaran'));
     }
 }
