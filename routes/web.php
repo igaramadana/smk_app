@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\PetugasController;
+use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PembayaranController;
@@ -62,6 +63,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/get-siswa-by-kelas/{kelasId}', [PembayaranController::class, 'getSiswaByKelas'])->name('get.siswa.by.kelas');
         Route::get('/pembayaran/kwitansi/{id}', [PembayaranController::class, 'kwitansi'])
             ->name('pembayaran.kwitansi');
+
+        // Riwayat Pembayaran
+        Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat.index');
     });
 
     Route::get('/petugas', function () {
