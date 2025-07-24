@@ -66,6 +66,7 @@ Route::middleware(['auth'])->group(function () {
 
         // Riwayat Pembayaran
         Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat.index');
+        Route::get('/riwayat/process', [RiwayatController::class, 'export'])->name('export.riwayat.process');
     });
 
     Route::get('/petugas', function () {
