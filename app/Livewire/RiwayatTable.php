@@ -39,15 +39,23 @@ final class RiwayatTable extends PowerGridComponent
     {
         return PembayaranModel::query()
             ->join('siswa', 'pembayaran.id_siswa', '=', 'siswa.id')
+            ->join('kelas', 'siswa.id_kelas', '=', 'kelas.id')
             ->join('kategori', 'pembayaran.id_kategori', '=', 'kategori.id')
             ->join('users', 'pembayaran.id_petugas', '=', 'users.id')
-            ->select('pembayaran.*', 'siswa.nama_siswa as nama_siswa', 'kategori.nama_kategori as nama_kategori', 'users.nama_lengkap as nama_petugas');
+            ->select(
+                'pembayaran.*',
+                'siswa.nama_siswa as nama_siswa',
+                'kelas.nama_kelas as nama_kelas',
+                'kategori.nama_kategori as nama_kategori',
+                'users.nama_lengkap as nama_petugas'
+            );
     }
 
     public function relationSearch(): array
     {
         return [
             'siswa' => ['nama_siswa', 'nis'],
+            'kelas' => ['nama_kelas'],
             'kategori' => ['nama_kategori'],
             'petugas' => ['nama_lengkap', 'email'],
         ];
@@ -58,6 +66,7 @@ final class RiwayatTable extends PowerGridComponent
         return PowerGrid::fields()
             ->add('id')
             ->add('nama_siswa')
+            ->add('nama_kelas')
             ->add('nama_kategori')
             ->add('nama_petugas')
             ->add('bulan_dibayar_formatted', fn(PembayaranModel $model) => $this->formatBulan($model->bulan_dibayar))
@@ -99,6 +108,10 @@ final class RiwayatTable extends PowerGridComponent
                 ->searchable()
                 ->sortable(),
 
+            Column::make('Kelas', 'nama_kelas')
+                ->searchable()
+                ->sortable(),
+
             Column::make('Kategori', 'nama_kategori')
                 ->searchable()
                 ->sortable(),
@@ -127,6 +140,7 @@ final class RiwayatTable extends PowerGridComponent
     {
         return [
             Filter::inputText('nama_siswa')->operators(['contains']),
+            Filter::inputText('nama_kelas')->operators(['contains']),
             Filter::inputText('nama_kategori')->operators(['contains']),
 
             Filter::select('metode_pembayaran', 'metode_pembayaran')
