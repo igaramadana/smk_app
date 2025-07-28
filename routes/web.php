@@ -31,6 +31,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/', [DashboardController::class, 'dashboardAdmin'])->name('dashboard.admin');
+        Route::get('/admin/dashboard/data', [DashboardController::class, 'getChartData'])->name('dashboard.data');
         // Data Siswa
         Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
         Route::post('/siswa/store', [SiswaController::class, 'store'])->name('siswa.store');

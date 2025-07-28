@@ -158,12 +158,11 @@
             <div>
                 <h1 class="text-4xl md:text-5xl font-bold mb-4">Sistem Manajemen Keuangan</h1>
                 <h2 class="text-2xl md:text-3xl font-bold mb-4 text-accent" id="typing-text"></h2>
-                <p class="text-xl mb-6">Solusi modern untuk manajemen pembayaran SPP sekolah yang efisien, transparan,
+                <p class="text-xl mb-6">Solusi modern untuk manajemen pembayaran sekolah yang efisien, transparan,
                     dan terintegrasi.</p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="/register"
-                        class="btn-primary text-center font-medium rounded-lg text-sm px-5 py-2.5">Daftar
-                        Sekarang</a>
+                    <ara href="{{route('login')}}"
+                        class="btn-primary text-center font-medium rounded-lg text-sm px-5 py-2.5">Login Sekarang</ara>
                 </div>
             </div>
             <div class="flex justify-end">
@@ -182,7 +181,7 @@
                 <div class="flex items-center space-x-2 mb-4">
                     <img src="{{ asset('img/logo.png') }}" alt="Logo Mirafa" style="width: 120px; height: auto;">
                 </div>
-                <p class="mb-4">Solusi pembayaran SPP sekolah yang modern, efisien, dan transparan.</p>
+                <p class="mb-4">Solusi pembayaran sekolah yang modern, efisien, dan transparan.</p>
                 <div class="flex space-x-4">
                     <a href="#" class="text-gray-500 hover:text-accent">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -245,7 +244,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M3 8l7.89 5.26a2 2 0 012.06 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
-                        <span class="text-gray-600">info@sppdigital.com</span>
+                        <span class="text-gray-600">mirafa@email.com</span>
                     </li>
                     <li class="flex items-start">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-accent" fill="none"
@@ -255,14 +254,15 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
-                        <span class="text-gray-600">Jl. Pendidikan No. 123, Jakarta</span>
+                        <span class="text-gray-600">Jl. KH. Wahid Hasyim No.42, Madyorenggo, Talok, Kec. Turen,
+                            Kabupaten Malang, Jawa Timur</span>
                     </li>
                 </ul>
             </div>
         </div>
 
         <div class="border-t border-gray-200 mt-8 pt-8 text-center">
-            <p class="text-gray-500">&copy; 2025 SPP Digital. All rights reserved.</p>
+            <p class="text-gray-500">&copy; 2025 Igaramadana. All rights reserved.</p>
         </div>
     </div>
 </footer>
