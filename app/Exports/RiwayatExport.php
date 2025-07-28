@@ -119,7 +119,6 @@ class RiwayatExport implements FromQuery, WithHeadings, WithMapping, WithStyles,
             ],
         ]);
 
-        // Styling header kolom
         $sheet->getStyle('A3:J3')->applyFromArray([
             'font' => [
                 'bold' => true,
