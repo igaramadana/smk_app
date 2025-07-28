@@ -152,10 +152,8 @@
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-    // Dapatkan path URL saat ini
     const currentPath = window.location.pathname;
 
-    // Daftar route dan ID menu yang sesuai
     const menuRoutes = {
         '/admin': 'menu-dashboard',
         '/admin/siswa': 'menu-siswa',
@@ -164,23 +162,19 @@
         '/admin/kategori': 'menu-kategori',
         '/admin/pembayaran': 'menu-pembayaran',
         '/admin/riwayat': 'menu-riwayat',
-        '/petugas': 'menu-dashboard' // Jika ada dashboard khusus petugas
+        '/petugas': 'menu-dashboard'
     };
 
-    // Temukan menu yang sesuai dengan path saat ini
     const activeMenuId = menuRoutes[currentPath];
 
-    // Jika ditemukan menu yang sesuai
     if (activeMenuId) {
         const activeMenu = document.getElementById(activeMenuId);
         if (activeMenu) {
-            // Tambahkan kelas active
             activeMenu.classList.add('bg-green-100');
-            // Ubah warna teks menjadi hijau
+
             activeMenu.classList.remove('text-gray-900');
             activeMenu.classList.add('text-green-600');
 
-            // Ubah warna ikon menjadi hijau
             const icon = activeMenu.querySelector('svg');
             if (icon) {
                 icon.classList.remove('text-gray-500');
@@ -189,11 +183,9 @@
         }
     }
 
-    // Tambahkan event listener untuk semua menu sidebar
     const sidebarItems = document.querySelectorAll('.sidebar-item');
     sidebarItems.forEach(item => {
         item.addEventListener('click', function() {
-            // Hapus semua kelas active terlebih dahulu
             sidebarItems.forEach(i => {
                 i.classList.remove('bg-green-100', 'text-green-600');
                 i.classList.add('text-gray-900');
@@ -205,12 +197,10 @@
                 }
             });
 
-            // Tambahkan kelas active ke menu yang diklik
             this.classList.add('bg-green-100');
             this.classList.remove('text-gray-900');
             this.classList.add('text-green-600');
 
-            // Ubah warna ikon
             const clickedIcon = this.querySelector('svg');
             if (clickedIcon) {
                 clickedIcon.classList.remove('text-gray-500');
