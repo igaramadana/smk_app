@@ -19,7 +19,9 @@
             </div>
             <div class="flex items-center">
                 <div class="flex items-center ms-3">
-                    <div>
+                    <div class="flex">
+                        <p class="text-sm font-medium text-gray-900 items-center mr-2 mt-2">
+                            {{Auth::user()->nama_lengkap}}</p>
                         <button type="button"
                             class="flex text-sm bg-green-100 rounded-full focus:ring-4 focus:ring-green-200 transition-colors duration-200"
                             aria-expanded="false" data-dropdown-toggle="dropdown-user">

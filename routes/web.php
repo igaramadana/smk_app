@@ -7,6 +7,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\RiwayatController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PembayaranController;
@@ -68,6 +69,10 @@ Route::middleware(['auth'])->group(function () {
         // Riwayat Pembayaran
         Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat.index');
         Route::get('/riwayat/process', [RiwayatController::class, 'export'])->name('export.riwayat.process');
+
+        // Setting
+        Route::get('/user/edit', [SettingController::class, 'index'])->name('users.edit');
+        Route::put('/user/update', [SettingController::class, 'update'])->name('users.update');
     });
 
     Route::get('/petugas', function () {
