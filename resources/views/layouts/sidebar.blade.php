@@ -180,7 +180,7 @@
         '/admin/pembayaran': 'menu-pembayaran',
         '/admin/riwayat': 'menu-riwayat',
         '/petugas': 'menu-dashboard',
-        '/admin/setting': 'menu-setting'
+        '/admin/user/edit': 'menu-setting'
     };
 
     const activeMenuId = menuRoutes[currentPath];
