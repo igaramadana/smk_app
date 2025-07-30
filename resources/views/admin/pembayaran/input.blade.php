@@ -196,8 +196,6 @@
     });
 
     document.addEventListener('DOMContentLoaded', function() {
-        // ... (script yang sudah ada) ...
-
         // Tangani submit form
         document.getElementById('pembayaranForm').addEventListener('submit', function(e) {
             // Tambahkan loading indicator jika perlu
