@@ -54,12 +54,6 @@
         <div class="flex flex-col p-6 mb-4 rounded-sm bg-white shadow">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="text-lg font-medium text-gray-700">Grafik Keuangan Tahunan</h3>
-                <select id="tahunSelect"
-                    class="text-sm border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="{{ date('Y') }}">Tahun {{ date('Y') }}</option>
-                    <option value="{{ date('Y')-1 }}">Tahun {{ date('Y')-1 }}</option>
-                    <option value="{{ date('Y')-2 }}">Tahun {{ date('Y')-2 }}</option>
-                </select>
             </div>
             <div class="flex-1">
                 <canvas id="financeChart" height="300"></canvas>
