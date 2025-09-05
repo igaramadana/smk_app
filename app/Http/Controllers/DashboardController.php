@@ -11,8 +11,10 @@ class DashboardController extends Controller
 {
     public function dashboardAdmin()
     {
+        $title = 'Dashboard Admin';
         $totalDana = PembayaranModel::with('kategori')
             ->whereHas('siswa')
+            ->whereHas('kategori')
             ->get()
             ->sum(function ($pembayaran) {
                 return $pembayaran->kategori->nominal;
@@ -54,7 +56,8 @@ class DashboardController extends Controller
             'transaksiTerakhir',
             'dataBulanan',
             'namaBulan',
-            'tahunIni'
+            'tahunIni',
+            'title',
         ));
     }
 

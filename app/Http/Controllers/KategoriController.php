@@ -16,11 +16,10 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama_kategori' => 'required|string|max:255|min:3|unique:kategori,nama_kategori',
+            'nama_kategori' => 'required|string|max:255|min:3',
             'nominal' => 'required|numeric|min:4'
         ], [
             'nama_kategori.required' => 'Nama kategori wajib diisi',
-            'nama_kategori.min' => 'Nama kategori minimal 3 karakter',
             'nama_kategori.unique' => 'Nama kategori sudah digunakan',
             'nominal.required' => 'Nominal wajib diisi',
             'nominal.min' => 'Nominal minimal Rp 1.000'
@@ -57,7 +56,6 @@ class KategoriController extends Controller
             'nominal' => 'required|numeric|min:4'
         ], [
             'nama_kategori.required' => 'Nama kategori wajib diisi',
-            'nama_kategori.min' => 'Nama kategori minimal 3 karakter',
             'nama_kategori.unique' => 'Nama kategori sudah digunakan',
             'nominal.required' => 'Nominal wajib diisi',
             'nominal.min' => 'Nominal minimal Rp 1.000'

@@ -64,8 +64,7 @@ final class KategoriTable extends PowerGridComponent
                 ->searchable(),
 
             Column::make('Nominal', 'nominal_formatted')
-                ->sortable()
-                ->searchable(),
+                ->sortable(),
 
             Column::action('Action')
         ];
