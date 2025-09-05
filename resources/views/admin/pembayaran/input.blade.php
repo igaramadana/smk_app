@@ -270,7 +270,6 @@
         }
     });
 
-    // ... (fungsi handleKelasChange dan updateBulanField tetap sama)
     // Fungsi untuk menangani perubahan kelas
     function handleKelasChange(selectElement) {
         const kelasId = selectElement.value;
@@ -312,18 +311,54 @@
     function updateBulanField(selectElement) {
         const row = selectElement.closest('.payment-row');
         const bulanSelect = row.querySelector('.bulan-select');
-        const selectedOption = selectElement.options[selectElement.selectedIndex];
+        const kategoriSelect = row.querySelector('.kategori-select');
+        const siswaSelect = row.querySelector('.siswa-select');
+        const selectedOption = kategoriSelect.options[kategoriSelect.selectedIndex];
         const isInfaq = selectedOption.getAttribute('data-is-infaq') === 'true';
 
         if (isInfaq) {
-            bulanSelect.disabled = false;
-            bulanSelect.setAttribute('required', 'required');
+            // Pastikan siswa dan kategori sudah dipilih
+            const siswaId = siswaSelect.value;
+            const kategoriId = kategoriSelect.value;
+            if (siswaId && kategoriId) {
+                bulanSelect.innerHTML = '<option value="">Memuat bulan...</option>';
+                bulanSelect.disabled = true;
+                fetch(`/admin/pembayaran/bulan-belum-terbayar/${siswaId}/${kategoriId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        bulanSelect.innerHTML = '<option value="">Pilih Bulan</option>';
+                        data.forEach(bulan => {
+                            const option = document.createElement('option');
+                            option.value = bulan;
+                            option.text = bulan;
+                            bulanSelect.appendChild(option);
+                        });
+                        bulanSelect.disabled = false;
+                        bulanSelect.setAttribute('required', 'required');
+                    })
+                    .catch(() => {
+                        bulanSelect.innerHTML = '<option value="">Gagal memuat bulan</option>';
+                        bulanSelect.disabled = false;
+                    });
+            } else {
+                bulanSelect.innerHTML = '<option value="">Pilih Bulan</option>';
+                bulanSelect.disabled = true;
+            }
         } else {
             bulanSelect.disabled = true;
             bulanSelect.removeAttribute('required');
-            bulanSelect.value = '';
+            bulanSelect.innerHTML = '<option value="">Pilih Bulan</option>';
         }
     }
+
+    // Tambahkan event listener pada siswa-select agar update bulan jika siswa berubah
+    document.querySelectorAll('.siswa-select').forEach(select => {
+        select.addEventListener('change', function() {
+            const row = this.closest('.payment-row');
+            const kategoriSelect = row.querySelector('.kategori-select');
+            updateBulanField(kategoriSelect);
+        });
+    });
 
     // Tambahkan event listener untuk kelas select yang sudah ada
     document.querySelectorAll('.kelas-select').forEach(select => {

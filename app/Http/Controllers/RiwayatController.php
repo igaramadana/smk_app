@@ -14,6 +14,20 @@ class RiwayatController extends Controller
     public function index()
     {
         $kategori = KategoriModel::all();
+        $infaqKategoriIds = KategoriModel::where('nama_kategori', 'like', '%infaq%')->pluck('id')->toArray();
+
+        $kategoriDropdown = $kategori->map(function ($kat) use ($infaqKategoriIds) {
+            if (in_array($kat->id, $infaqKategoriIds)) {
+                return null;
+            }
+            return $kat;
+        })->filter();
+
+        $kategoriDropdown->prepend((object)[
+            'id' => 'infaq',
+            'nama_kategori' => 'Infaq'
+        ]);
+
         $bulanDibayar = PembayaranModel::select('bulan_dibayar')
             ->distinct()
             ->orderByRaw("FIELD(bulan_dibayar, 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember')")
@@ -37,7 +51,7 @@ class RiwayatController extends Controller
         ];
 
         return view('admin.pembayaran.riwayat', [
-            'kategori' => $kategori,
+            'kategori' => $kategoriDropdown,
             'bulan' => $bulanDibayar,
             'allBulan' => $allBulan
         ]);
@@ -48,20 +62,19 @@ class RiwayatController extends Controller
         $kategori = $request->input('kategori');
         $bulan = $request->input('bulan');
 
+        if ($kategori === 'infaq') {
+            $kategoriIds = KategoriModel::where('nama_kategori', 'like', '%infaq%')->pluck('id')->toArray();
+        } else {
+            $kategoriIds = $kategori ? [$kategori] : [];
+        }
+
         $filename = 'riwayat_pembayaran_' . now()->format('Ymd_His');
-
-        if ($kategori) {
-            $filename .= '_kategori_' . $kategori;
-        }
-
-        if ($bulan) {
-            $filename .= '_bulan_' . $bulan;
-        }
-
+        if ($kategori) $filename .= '_kategori_' . $kategori;
+        if ($bulan) $filename .= '_bulan_' . $bulan;
         $filename .= '.xlsx';
 
         return Excel::download(
-            new RiwayatExport($kategori, $bulan),
+            new RiwayatExport($kategoriIds, $bulan),
             $filename
         );
     }

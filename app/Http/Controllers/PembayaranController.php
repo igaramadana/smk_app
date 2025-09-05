@@ -197,6 +197,24 @@ class PembayaranController extends Controller
         return response()->json($bulanTerbayar);
     }
 
+    public function getBulanBelumTerbayar($siswaId, $kategoriId)
+    {
+        $allBulan = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
+
+        $sudahDibayar = PembayaranModel::where('id_siswa', $siswaId)
+            ->where('id_kategori', $kategoriId)
+            ->whereNotNull('bulan_dibayar')
+            ->pluck('bulan_dibayar')
+            ->toArray();
+
+        $belumDibayar = array_values(array_diff($allBulan, $sudahDibayar));
+
+        return response()->json($belumDibayar);
+    }
+
     public function kwitansi($id)
     {
         $pembayaran = PembayaranModel::with(['siswa', 'kategori', 'petugas'])->findOrFail($id);

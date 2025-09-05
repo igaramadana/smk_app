@@ -65,7 +65,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/get-siswa-by-kelas/{kelasId}', [PembayaranController::class, 'getSiswaByKelas'])->name('get.siswa.by.kelas');
         Route::get('/pembayaran/kwitansi/{id}', [PembayaranController::class, 'kwitansi'])
             ->name('pembayaran.kwitansi');
-        Route::get('/pembayaran/bulan-terbayar/{siswaId}/{kategoriId}', [PembayaranController::class, 'getBulanTerbayar']);
+        Route::get('/pembayaran/bulan-belum-terbayar/{siswaId}/{kategoriId}', [PembayaranController::class, 'getBulanBelumTerbayar']);
 
         // Riwayat Pembayaran
         Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat.index');
