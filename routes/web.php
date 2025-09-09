@@ -63,8 +63,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran.index');
         Route::post('/pembayaran/store', [PembayaranController::class, 'store'])->name('pembayaran.store');
         Route::get('/get-siswa-by-kelas/{kelasId}', [PembayaranController::class, 'getSiswaByKelas'])->name('get.siswa.by.kelas');
-        Route::get('/pembayaran/kwitansi/{id}', [PembayaranController::class, 'kwitansi'])
-            ->name('pembayaran.kwitansi');
+        // Route::get('/pembayaran/kwitansi/{id}', [PembayaranController::class, 'kwitansi'])
+        //     ->name('pembayaran.kwitansi');
+        Route::get('/pembayaran/kwitansi-multi', [PembayaranController::class, 'kwitansiMulti'])->name('pembayaran.kwitansi.multi');
         Route::get('/pembayaran/bulan-belum-terbayar/{siswaId}/{kategoriId}', [PembayaranController::class, 'getBulanBelumTerbayar']);
 
         // Riwayat Pembayaran

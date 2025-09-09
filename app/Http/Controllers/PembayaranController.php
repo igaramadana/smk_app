@@ -51,6 +51,7 @@ class PembayaranController extends Controller
         $successCount = 0;
         $errors = [];
         $lastPaymentId = null;
+        $paymentIds = []; // Tambahkan ini
         $notifications = [];
 
         try {
@@ -101,8 +102,8 @@ class PembayaranController extends Controller
                             'tanggal_pembayaran' => $tanggal_formatted,
                             'metode_pembayaran' => $payment['metode_pembayaran'],
                         ]);
-
                         $lastPaymentId = $pembayaran->id;
+                        $paymentIds[] = $pembayaran->id; // Simpan semua ID pembayaran
                         $kategori = KategoriModel::find($payment['id_kategori']);
                         $totalPembayaran += $kategori->nominal;
 
@@ -172,6 +173,10 @@ class PembayaranController extends Controller
             if ($successCount === 1 && count($errors) === 0) {
                 $redirect = $redirect->route('pembayaran.kwitansi', $lastPaymentId)
                     ->with('print', true);
+            } elseif ($successCount > 1 && count($errors) === 0) {
+                // Redirect ke kwitansi multi
+                $redirect = $redirect->route('pembayaran.kwitansi.multi', ['ids' => implode(',', $paymentIds)])
+                    ->with('print', true);
             } else {
                 $redirect = $redirect->route('pembayaran.index');
             }
@@ -219,5 +224,15 @@ class PembayaranController extends Controller
     {
         $pembayaran = PembayaranModel::with(['siswa', 'kategori', 'petugas'])->findOrFail($id);
         return view('admin.pembayaran.kwitansi', compact('pembayaran'));
+    }
+
+    public function kwitansiMulti(Request $request)
+    {
+        $ids = explode(',', $request->query('ids'));
+        $pembayarans = PembayaranModel::with(['siswa', 'kategori', 'petugas'])
+            ->whereIn('id', $ids)
+            ->get();
+
+        return view('admin.pembayaran.kwitansi-multi', compact('pembayarans'));
     }
 }
