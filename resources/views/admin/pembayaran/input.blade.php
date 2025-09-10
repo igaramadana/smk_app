@@ -7,7 +7,7 @@
             ['url' => '#', 'text' => 'Input Pembayaran'],
         ]" />
 
-        <div class="mt-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl shadow-lg border border-green-100 p-8">
+        <div class="mt-4 bg-white rounded-xl shadow-lg border border-green-100 p-8">
             <!-- Header Section -->
             <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-8 space-y-4 lg:space-y-0">
                 <div>
@@ -232,10 +232,8 @@
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-    // Counter untuk baris baru
     let rowCounter = 1;
 
-    // Fungsi untuk menghitung total pembayaran
     function calculateTotal() {
         let total = 0;
         let itemCount = 0;
